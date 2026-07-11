@@ -4,3 +4,34 @@ on:
   push:
     branches:
       - main
+
+jobs:
+  test:
+    name: Run Playwright Tests
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+
+      - name: Make run script executable
+        run: chmod +x run-tests.sh
+
+      - name: Run Smoke Tests
+        run: ./run-tests.sh -Pprod -Dgroups=smoke
+
+      - name: Upload Test Artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            target/
