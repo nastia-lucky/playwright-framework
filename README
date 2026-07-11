@@ -1,0 +1,25 @@
+# Playwright Test Framework
+
+Automation framework built with Java and Playwright.
+
+## Tech Stack
+
+- Java 21
+- Playwright
+- JUnit 5
+- Guice
+- Allure
+- Docker
+
+## Features
+
+- UI Tests
+- API Tests
+- Parallel execution
+- Dependency Injection
+- Playwright Tracing
+- Docker support
+
+## Run
+
+./mvnw test

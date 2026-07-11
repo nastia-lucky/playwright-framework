@@ -1,5 +1,11 @@
 target/
 .idea/
 .git/
-allure-results/
+.vscode/
+
 allure-report/
+trace/
+
+README.md
+
+*.log
