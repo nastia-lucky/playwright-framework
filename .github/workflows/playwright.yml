@@ -45,10 +45,15 @@ jobs:
         run: chmod +x run-tests.sh
 
       - name: Run Tests
+
+        env:
+          PROFILE: ${{ github.event.inputs.profile || 'prod' }}
+          TAGS: ${{ github.event.inputs.tags || 'smoke' }}
+
         run: |
           ./run-tests.sh \
-            -P${{ github.event.inputs.profile }} \
-            -Dgroups="${{ github.event.inputs.tags }}"
+            -P$PROFILE \
+            -Dgroups="$TAGS"
 
       - name: Upload Test Artifacts
         if: always()
