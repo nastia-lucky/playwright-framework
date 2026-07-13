@@ -5,6 +5,25 @@ on:
     branches:
       - main
 
+  workflow_dispatch:
+    inputs:
+
+      profile:
+        description: "Environment profile"
+        required: true
+        default: "prod"
+        type: choice
+
+        options:
+          - prod
+          - dev
+
+      tags:
+        description: "JUnit Tags"
+        required: true
+        default: "smoke"
+        type: string
+
 jobs:
   test:
     name: Run Playwright Tests
@@ -25,8 +44,11 @@ jobs:
       - name: Make run script executable
         run: chmod +x run-tests.sh
 
-      - name: Run Smoke Tests
-        run: ./run-tests.sh -Pprod -Dgroups=smoke
+      - name: Run Tests
+        run: |
+          ./run-tests.sh \
+            -P${{ github.event.inputs.profile }} \
+            -Dgroups="${{ github.event.inputs.tags }}"
 
       - name: Upload Test Artifacts
         if: always()

@@ -10,30 +10,24 @@ public class TestModule extends AbstractModule {
 
   private final Page page;
   private final APIRequestContext requestContext;
-  private final Faker faker;
   private final TestConfig testConfig;
 
 
   public TestModule(
       Page page,
       APIRequestContext requestContext,
-      Faker faker,
       TestConfig testConfig) {
 
     this.page = page;
     this.requestContext = requestContext;
-    this.faker = faker;
     this.testConfig = testConfig;
   }
 
   @Override
   protected void configure() {
-
     bind(Page.class).toInstance(page);
-
     bind(APIRequestContext.class).toInstance(requestContext);
-
-    bind(Faker.class).toInstance(faker);
+    bind(Faker.class).toInstance(new Faker());
     bind(TestConfig.class).toInstance(testConfig);
   }
 }

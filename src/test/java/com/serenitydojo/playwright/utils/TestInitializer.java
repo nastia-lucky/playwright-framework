@@ -15,7 +15,6 @@ public class TestInitializer {
       Object test,
       Page page,
       APIRequestContext requestContext,
-      Faker faker,
       TestConfig config) {
 
     Injector injector =
@@ -23,7 +22,6 @@ public class TestInitializer {
             new TestModule(
                 page,
                 requestContext,
-                faker,
                 config));
 
     injector.injectMembers(test);

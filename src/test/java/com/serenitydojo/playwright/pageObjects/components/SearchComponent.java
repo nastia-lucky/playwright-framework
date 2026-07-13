@@ -3,7 +3,6 @@ package com.serenitydojo.playwright.pageObjects.components;
 import com.google.inject.Inject;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
-import com.microsoft.playwright.options.LoadState;
 import com.serenitydojo.playwright.pageObjects.BasePage;
 import io.qameta.allure.Step;
 
@@ -19,7 +18,12 @@ public class SearchComponent extends BasePage {
   public void searchBy(String keyword) {
     logger.info("Search by keyword {}", keyword);
     getByPlaceholder("Search").fill(keyword);
-    page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Search")).click();
+    page.waitForResponse("**/products**", () -> {
+      page.getByRole(
+          AriaRole.BUTTON,
+          new Page.GetByRoleOptions().setName("Search")
+      ).click();
+    });
   }
 
   @Step("Clear search field")

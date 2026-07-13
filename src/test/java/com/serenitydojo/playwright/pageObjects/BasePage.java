@@ -1,17 +1,21 @@
 package com.serenitydojo.playwright.pageObjects;
 
+import com.google.inject.Inject;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
+import com.serenitydojo.playwright.utils.TestConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class BasePage {
 
 
+  @Inject
+  private TestConfig testConfig;
   protected Page page;
-  protected String url = "https://practicesoftwaretesting.com/";
   protected final Logger logger = LoggerFactory.getLogger(getClass());
+
 
 
   public BasePage(Page page) {
@@ -20,13 +24,13 @@ public abstract class BasePage {
 
 
   public void open(String uri) {
-    page.navigate(url + "/" + uri);
-    logger.info("Open page {}", url + "/" + uri);
+    page.navigate(testConfig.getUiUrl() + "/" + uri);
+    logger.info("Open page {}", testConfig.getUiUrl() + "/" + uri);
   }
 
   public void openHomePage() {
-    page.navigate(url);
-    logger.info("Open home page {}", url);
+    page.navigate(testConfig.getUiUrl());
+    logger.info("Open home page {}", testConfig.getUiUrl());
 
   }
 

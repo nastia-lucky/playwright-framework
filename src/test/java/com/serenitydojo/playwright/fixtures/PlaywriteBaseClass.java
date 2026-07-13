@@ -1,5 +1,6 @@
 package com.serenitydojo.playwright.fixtures;
 
+import com.google.inject.Inject;
 import com.microsoft.playwright.APIRequestContext;
 import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.Page;
@@ -21,16 +22,17 @@ import java.nio.file.Paths;
 @UsePlaywright(HeadlessChromeOptions.class)
 public abstract class PlaywriteBaseClass {
 
-  protected static APIRequestContext requestContext;
-  protected static Faker faker;
-  protected Page page;
+  @Inject
+  protected Faker faker;
+
   protected static TestConfig testConfig;
+  protected static APIRequestContext requestContext;
+  protected Page page;
 
   @BeforeAll
   public static void setUpRequestContext(Playwright playwright) {
     testConfig = new TestConfig();
     requestContext = RequestContextFactory.create(playwright, testConfig);
-    faker = new Faker();
   }
 
   @BeforeEach
@@ -40,7 +42,6 @@ public abstract class PlaywriteBaseClass {
         this,
         page,
         requestContext,
-        faker,
         testConfig);
     TracingManager.start(context);
     this.page.navigate(testConfig.getUiUrl());
