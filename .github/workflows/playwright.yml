@@ -41,6 +41,21 @@ jobs:
           java-version: '21'
           cache: maven
 
+      - name: Download Allure
+        run: |
+          wget https://github.com/allure-framework/allure2/releases/download/2.29.0/allure-2.29.0.tgz
+
+      - name: Extract Allure
+        run: |
+          tar -zxvf allure-2.29.0.tgz
+
+      - name: Add Allure to PATH
+        run: |
+          echo "$GITHUB_WORKSPACE/allure-2.29.0/bin" >> $GITHUB_PATH
+
+      - name: Verify Allure Installation
+        run: allure --version
+
       - name: Make run script executable
         run: chmod +x run-tests.sh
 
