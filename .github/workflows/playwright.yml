@@ -24,6 +24,11 @@ on:
         default: "smoke"
         type: string
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   test:
     name: Run Playwright Tests
