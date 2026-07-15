@@ -101,3 +101,9 @@ jobs:
           name: test-results
           path: |
             target/
+
+      - name: Upload Pages Artifact
+        if: always()
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: allure-report
